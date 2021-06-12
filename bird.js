@@ -2,12 +2,15 @@ class Bird {
     constructor(x,y) {
         var option = {
             isStatic:false,
-            restitution:1
+            'friction':0.5,
+            'density':1.2,
+            'restitution':0.3
         }
 
         this.body = Bodies.rectangle(x,y,75,75,option);
-        this.width = 75;
-        this.height = 75;
+        this.image = loadImage("bird.gif")
+        this.width = 100;
+        this.height = 100;
         World.add(world, this.body);
     }
 
@@ -21,8 +24,8 @@ class Bird {
         fill("red");
         strokeWeight(8);
         stroke("yellow");
-        rectMode(CENTER);
-        rect(0,0,this.width,this.height);
+        imageMode(CENTER);
+        image(this.image,0,0,this.width,this.height);
         pop();
     }
 }
