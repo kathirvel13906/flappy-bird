@@ -3,6 +3,7 @@ class Form {
         this.title = createElement('h1');
         this.button = createButton('Play');
         this.greeting = createElement('h2');
+        this.resetButton = createButton("Reset");
 
         this.i1 = createElement('h3');
         this.i2 = createElement('h4');
@@ -21,18 +22,19 @@ class Form {
         this.i4.hide();
         this.i5.hide();
     }
+      
 
     display() {
         this.title.html("Flappy Bird");
-        this.title.position(430, 20);
+        this.title.position(430, 5);
 
         this.greeting.html("Hello Bird!");
-        this.greeting.position(455, 90);
+        this.greeting.position(455, 50);
 
         this.button.position(500, 440);
 
         this.i1.html("Press The Play Button To Start");
-        this.i1.position(390,150);
+        this.i1.position(390,80);
 
         this.i2.html("Press SPACE To Make The Bird Fly Higher.");
         this.i2.position(370,260);
@@ -56,4 +58,15 @@ class Form {
             gameState = 1;
         })
     }
+
+    reset() {
+        this.resetButton.position(960,10);
+        this.resetButton.mousePressed(()=>{
+          gameState = 0;
+          form.display();
+          Matter.Body.setPosition(bird.body, {x: 500, y: 200});
+          Matter.Body.setStatic(bird.body, true);
+          camera.position.x = bird.body.position.x;
+        })
+      }
 }

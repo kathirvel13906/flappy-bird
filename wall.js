@@ -7,9 +7,9 @@ class Wall {
         this.rand = random(35,465);
 
         this.width = 50;
-        this.w1 = Bodies.rectangle(x, 25, 50, this.rand, option);
+        this.w1 = Bodies.rectangle(250+x*750, 25, 50, this.rand, option);
         this.height1 = this.rand;
-        this.w2 = Bodies.rectangle(x, 475, 50, 500-this.rand, option);
+        this.w2 = Bodies.rectangle(250+x*750, 475, 50, 500-this.rand, option);
         this.height2 = 500-this.rand;
 
         World.add(world, this.w1);

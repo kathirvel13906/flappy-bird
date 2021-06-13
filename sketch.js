@@ -8,15 +8,15 @@ var PLAY = 1;
 var END = 2;
 var gameState = 0;
 
-var engine, world;
+var engine, world, canvas;
 
-var canvas;
-var ground;
+var ground, topedge;
 var form;
-var bg, bgSprite;
+var time, score;
+var bg;
 var bird;
-var a = 1100;
-var wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10, wall11, wall12, wall13, wall14, wall15, wall16, wall17, wall18, wall19, wall20;
+var wall1 , wall2 , wall3 , wall4 , wall5 , wall6 , wall7 , wall8 , wall9 , wall10;
+var wall11, wall12, wall13, wall14, wall15, wall16, wall17, wall18, wall19, wall20;
 
 function preload() {
   bg = loadImage("bg.png");
@@ -28,45 +28,50 @@ function setup() {
 
 	engine = Engine.create();
   world = engine.world;
-
-  /*bgSprite = createSprite(1000, 50, 1000, 500);
-  bgSprite.addImage(bg);
-  bgSprite.velocityX = -8;
-  bgSprite.scale = 7;*/
   
-  ground = new Ground(500,485,50000,15);
+  ground = new Ground(500,485,500000,15);
+  topedge = new Ground(500,1,500000,2);
+
   form = new Form();
-  bird = new Bird(200,200);
+  bird = new Bird(500,200);
 
-  wall1 = new Wall(a+200);
-  wall2 = new Wall(a+400);
-  wall3 = new Wall(a+600);
-  wall4 = new Wall(a+800);
-  wall5 = new Wall(a+1000);
-  wall6 = new Wall(a+1200);
-  wall7 = new Wall(a+1400);
-  wall8 = new Wall(a+1600);
-  wall9 = new Wall(a+1800);
+  wall1 = new Wall(1);
+  wall2 = new Wall(2);
+  wall3 = new Wall(3);
+  wall4 = new Wall(4);
+  wall5 = new Wall(5);
+  wall6 = new Wall(6);
+  wall7 = new Wall(7);
+  wall8 = new Wall(8);
+  wall9 = new Wall(9);
+  wall10 = new Wall(10);
+  wall11 = new Wall(11);
+  wall12 = new Wall(12);
+  wall13 = new Wall(13);
+  wall14 = new Wall(14);
+  wall15 = new Wall(15);
+  wall16 = new Wall(16);
+  wall17 = new Wall(17);
+  wall18 = new Wall(18);
+  wall19 = new Wall(19);
+  wall20 = new Wall(20);
   
-
-	Engine.run(engine);
+  Engine.run(engine);
+  
+  time = 0;
+  score = 0;
 }
 
 function draw() {
   //background(0,0,255);
   background(bg);
 
-  //console.log(gameState);
+  console.log(gameState);
 
   Engine.update(engine);
 
-  /*if(bgSprite.x<0) {
-    bgSprite.x = 1000;
-  }*/
-
-  drawSprites();
-
   ground.display();
+  topedge.display();
   bird.display();
 
   wall1.display();
@@ -78,8 +83,23 @@ function draw() {
   wall7.display();
   wall8.display();
   wall9.display();
+  wall10.display();
+  wall11.display();
+  wall12.display();
+  wall13.display();
+  wall14.display();
+  wall15.display();
+  wall16.display();
+  wall17.display();
+  wall18.display();
+  wall19.display();
+  wall20.display();
+
+  camera.position.x = bird.body.position.x;
   
-  
+  form.reset();
+
+  drawSprites();
 
   if(gameState === 0) {
     form.display();
@@ -87,20 +107,31 @@ function draw() {
   if(gameState === 1) {
     birdFly();
 
-    form.hide();
+    fill("black");
+    textSize(24);
+    stroke("yellow");
+    text("Survival Time: "+time, bird.body.position.x-490, 35);
+    text("Score: "+score, bird.body.position.x-490, 60);
 
-    camera.position.x = bird.body.position.x;
+    //form.hide();
   } else
   if(gameState === 2) {
 
   }
+
+  collide();
 }
 
 function birdFly() {
-  if(keyDown("space")) {
+  if(keyDown("space") && gameState === 1) {
+    Matter.Body.setStatic(bird.body, false);
     Matter.Body.applyForce(bird.body, bird.body.position, {x:39,y:-65});
   }
 }
 
-
+function collide() {
+  if(wall1.x - bird.x < 75) {
+    console.log("game ended");
+  }
+}
 

@@ -1,10 +1,10 @@
 class Bird {
     constructor(x,y) {
         var option = {
-            isStatic:false,
-            'friction':0.5,
-            'density':1.2,
-            'restitution':0.3
+            isStatic:true,
+            'friction':0.3,
+            'density':1,
+            'restitution':0.1
         }
 
         this.body = Bodies.rectangle(x,y,75,75,option);
